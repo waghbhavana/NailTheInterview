@@ -13,11 +13,11 @@ import javax.inject.Inject
 class QuestionsViewModel @Inject constructor(private val repository: QuestionsRepository) : ViewModel() {
 
     val questions : StateFlow<List<QuestionListItem>>
-        get() = repository.questionList
+        get() = repository.questions
 
     init {
         viewModelScope.launch {
-            repository.getQuestionList("kotlin")
+            repository.getQuestionList("Java")
         }
     }
 }

@@ -9,7 +9,7 @@ import retrofit2.http.Headers
 interface QuestionsApi {
 
     @GET("/v3/b/65f9de6e266cfc3fde9ac9c9?meta=false")
-  suspend  fun getQuestions(@Header("X-JSON-path") category: String) : Response<List<QuestionListItem>>
+  suspend fun getQuestions(@Header("X-JSON-Path") category: String) : Response<List<QuestionListItem>>
 
 
   @GET("/v3/b/65f9de6e266cfc3fde9ac9c9?meta=false")

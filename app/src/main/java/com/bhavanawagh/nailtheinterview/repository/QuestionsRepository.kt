@@ -1,5 +1,6 @@
 package com.bhavanawagh.nailtheinterview.repository
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import com.bhavanawagh.nailtheinterview.api.QuestionsApi
 import com.bhavanawagh.nailtheinterview.models.QuestionListItem
@@ -14,19 +15,20 @@ class QuestionsRepository @Inject constructor(private val questionsApi: Question
         get() = _categories
 
     private val _questions = MutableStateFlow<List<QuestionListItem>>(emptyList())
-    val questionList : StateFlow<List<QuestionListItem>>
+    val questions : StateFlow<List<QuestionListItem>>
         get() = _questions
 
     suspend fun getCategories() {
         val response = questionsApi.getCategory()
         if (response.isSuccessful && response.body() != null) {
-            _categories.emit(response.body()!!)
+            _categories.emit(response.body()!!.distinct())
         }
     }
 
     suspend fun getQuestionList( category : String){
-        val response = questionsApi.getQuestions(category)
+        val response = questionsApi.getQuestions("questions[?(@.category==\"$category\")]")
         if(response.isSuccessful && response.body()!= null){
+            Log.d("getQuestionList","Questions:  ${response.body()!!.toString()}")
             _questions.emit(response.body()!!)
         }
     }

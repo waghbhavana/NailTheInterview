@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.bhavanawagh.nailtheinterview.api.QuestionsApi
+import com.bhavanawagh.nailtheinterview.screens.CategoryScreen
+import com.bhavanawagh.nailtheinterview.screens.QuestionsScreen
 import com.bhavanawagh.nailtheinterview.ui.theme.NailTheInterviewTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,14 +31,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            var response = questionsApi.getCategory()
-            category = response.body()?.distinct().toString()
-            Log.d("Category", "Category list $category")
-        }
         setContent {
             NailTheInterviewTheme {
-
+               // QuestionsScreen()
+                CategoryScreen()
 
             }
         }
