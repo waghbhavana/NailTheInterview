@@ -2,9 +2,7 @@ package com.bhavanawagh.nailtheinterview.screens
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,16 +15,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bhavanawagh.nailtheinterview.models.QuestionListItem
 import com.bhavanawagh.nailtheinterview.R
 import androidx.compose.runtime.State
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.bhavanawagh.nailtheinterview.viewmodels.QuestionsViewModel
 
 @Composable
 fun QuestionsScreen(){
 
-    val questionsViewModel : QuestionsViewModel = viewModel()
+    val questionsViewModel : QuestionsViewModel = hiltViewModel()
     val questionList: State<List<QuestionListItem>> = questionsViewModel.questions.collectAsState()
     
     LazyColumn(content = {
