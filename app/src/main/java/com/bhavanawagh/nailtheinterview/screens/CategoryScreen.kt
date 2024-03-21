@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,42 +31,59 @@ import com.bhavanawagh.nailtheinterview.R
 import com.bhavanawagh.nailtheinterview.viewmodels.CategoryViewModel
 
 @Composable
-fun CategoryScreen( onClick : (category: String) -> Unit){
-    val categoryViewModel : CategoryViewModel = hiltViewModel()
+fun CategoryScreen(onClick: (category: String) -> Unit) {
+    val categoryViewModel: CategoryViewModel = hiltViewModel()
     val categories: State<List<String>> = categoryViewModel.categories.collectAsState()
 
-    LazyVerticalGrid(columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(8.dp),
-                    verticalArrangement = Arrangement.SpaceAround)
-    {
-       items(categories.value){
-           CategoryItem(category = it, onClick = onClick )
-       }
+    if (categories.value.isEmpty()) {
+        Box(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Loading..",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displayLarge
+            )
+        }
+
+    } else {
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.SpaceAround
+        )
+        {
+            items(categories.value) {
+                CategoryItem(category = it, onClick = onClick)
+            }
+        }
     }
 
 }
 
 @Composable
-fun CategoryItem( category : String , onClick : (category: String) -> Unit){
-    
+fun CategoryItem(category: String, onClick: (category: String) -> Unit) {
+
     Box(modifier = Modifier
         .padding(4.dp)
         .clickable {
             onClick(category)
         }
-        .size(160.dp)
+        .size(100.dp)
         .clip(RoundedCornerShape(12.dp))
-        .paint(painter = painterResource(id = R.drawable.wave_haikei),
-        contentScale = ContentScale.Crop)
+        .paint(
+            painter = painterResource(id = R.drawable.wave_haikei),
+            contentScale = ContentScale.Crop
+        )
         .border(1.dp, Color(0xFFEEEEEE)),
-      contentAlignment = Alignment.Center
-        ){
-        Text(text= category,
-        modifier = Modifier.padding(0.dp, 2.dp),
-        fontSize = 14.sp,
-        color = Color.Black,
-        style = MaterialTheme.typography.bodyMedium,
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = category,
+            modifier = Modifier.padding(0.dp, 2.dp),
+            fontSize = 14.sp,
+            color = Color.Black,
+            style = MaterialTheme.typography.bodyMedium,
         )
     }
-    
+
 }
