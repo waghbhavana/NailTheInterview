@@ -1,4 +1,4 @@
-Nail the Interview simple app is built with Jetpack Compose Navigation Component and MVVM Architecture.
+Nail the Interview is simple app that built with Jetpack Compose Navigation Component and MVVM Architecture.
 
 Build With following :
 
